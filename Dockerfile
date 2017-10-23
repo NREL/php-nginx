@@ -1,11 +1,12 @@
-FROM wodby/nginx:1.13
+FROM wodby/nginx:1.13.6
 
 ENV WODBY_DIR_FILES="/mnt/files" \
     NGINX_USER="www-data" \
     DRUPAL_VER="8" \
     NGINX_DRUPAL_HIDE_HEADERS="On" \
     NGINX_STATIC_CONTENT_ACCESS_LOG="On"  \
-    NGINX_DRUPAL_HIDE_HEADERS="On"
+    NGINX_DRUPAL_HIDE_HEADERS="On" \
+    FROM_TAG="1.13.6"
 
 USER root
 
