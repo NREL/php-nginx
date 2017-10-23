@@ -4,8 +4,12 @@ ENV WODBY_DIR_FILES="/mnt/files" \
     NGINX_USER="www-data" \
 
     DRUPAL_VER="8" \
-    NGINX_DRUPAL_HIDE_HEADERS="On", \
-    NGINX_STATIC_CONTENT_ACCESS_LOG="On"
+    NGINX_DRUPAL_HIDE_HEADERS="On" \
+    NGINX_STATIC_CONTENT_ACCESS_LOG="On" 
+
+    # NGINX_SERVER_NAME="drupal" \
+    # NGINX_BACKEND_HOST="" \
+    # NGINX_SERVER_ROOT="" \
 
 
 USER root
@@ -22,19 +26,12 @@ RUN deluser nginx && \
         echo -n '/usr/local/bin/fix-permissions.sh, ' ; \
         echo '/usr/sbin/nginx' ; \
     } | tee /etc/sudoers.d/www-data && \
-    rm /etc/sudoers.d/nginx
+    rm /etc/sudoers.d/nginx && \
+    rm /etc/gotpl/default-vhost.conf.tpl
 
 USER www-data
 
 COPY templates /etc/gotpl/
 COPY init /docker-entrypoint-init.d/
 
-# From drupal-nginx
-USER root
 
-RUN rm /etc/gotpl/default-vhost.conf.tpl
-
-USER www-data
-
-COPY templates /etc/gotpl/
-COPY init /docker-entrypoint-init.d/
