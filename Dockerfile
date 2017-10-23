@@ -1,9 +1,12 @@
-ARG FROM_TAG
-
-FROM wodby/nginx:${FROM_TAG}
+FROM wodby/nginx:1.13
 
 ENV WODBY_DIR_FILES="/mnt/files" \
-    NGINX_USER="www-data"
+    NGINX_USER="www-data" \
+
+    DRUPAL_VER="8" \
+    NGINX_DRUPAL_HIDE_HEADERS="On", \
+    NGINX_STATIC_CONTENT_ACCESS_LOG="On"
+
 
 USER root
 
@@ -20,6 +23,16 @@ RUN deluser nginx && \
         echo '/usr/sbin/nginx' ; \
     } | tee /etc/sudoers.d/www-data && \
     rm /etc/sudoers.d/nginx
+
+USER www-data
+
+COPY templates /etc/gotpl/
+COPY init /docker-entrypoint-init.d/
+
+# From drupal-nginx
+USER root
+
+RUN rm /etc/gotpl/default-vhost.conf.tpl
 
 USER www-data
 
