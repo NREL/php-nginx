@@ -2,15 +2,10 @@ FROM wodby/nginx:1.13
 
 ENV WODBY_DIR_FILES="/mnt/files" \
     NGINX_USER="www-data" \
-
     DRUPAL_VER="8" \
     NGINX_DRUPAL_HIDE_HEADERS="On" \
-    NGINX_STATIC_CONTENT_ACCESS_LOG="On" 
-
-    # NGINX_SERVER_NAME="drupal" \
-    # NGINX_BACKEND_HOST="" \
-    # NGINX_SERVER_ROOT="" \
-
+    NGINX_STATIC_CONTENT_ACCESS_LOG="On"  \
+    NGINX_DRUPAL_HIDE_HEADERS="On"
 
 USER root
 

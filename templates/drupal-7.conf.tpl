@@ -121,6 +121,7 @@ server {
         fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_param WWW_NREL {{ getenv "WWW_NREL" "PROD" }};
         fastcgi_pass php;
         track_uploads {{ getenv "NGINX_DRUPAL_TRACK_UPLOADS" "uploads 60s" }};
     }
