@@ -111,7 +111,7 @@ server {
             tcp_nodelay off;
         }
 
-        location ~* ^(?:.+\.(?:htaccess|web\.config|make|txt|engine|inc|info|install|module|profile|po|pot|sh|.*sql|test|theme|tpl(?:\.php)?|xtmpl)|code-style\.pl|/Entries.*|/Repository|/Root|/Tag|/Template)$ {
+        location ~* ^(?:.+\.(?:htaccess|make|txt|engine|inc|info|install|module|profile|po|pot|sh|.*sql|test|theme|tpl(?:\.php)?|xtmpl)|code-style\.pl|/Entries.*|/Repository|/Root|/Tag|/Template)$ {
             return 404;
         }
         try_files $uri @drupal;
@@ -204,6 +204,10 @@ server {
     location = /favicon.ico {
         expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
         try_files /favicon.ico @empty;
+    }
+
+    location ~ /web\.config {
+        deny  all;
     }
 
     location ~* ^/.well-known/ {
