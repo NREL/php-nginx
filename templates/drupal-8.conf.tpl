@@ -210,6 +210,24 @@ server {
         allow all;
     }
 
+    # simple saml config block
+    location  /simplesaml {
+		
+		# add alias root to global simple saml install (default location)
+		# alias /var/simplesamlphp/www;
+		
+		# set index document
+		index index.php;
+
+      location ~ \.php(/|$) {
+	    fastcgi_split_path_info ^(.+?\.php)(/.+)$;
+		  fastcgi_param PATH_INFO $fastcgi_path_info;
+      fastcgi_pass php;
+		  fastcgi_index index.php;
+		  include fastcgi_params;
+		  }
+	  }
+
     location @empty {
         expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
         empty_gif;
